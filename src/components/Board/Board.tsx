@@ -1,6 +1,6 @@
 import { Button, CardActions, CardContent, styled, Box } from '@mui/material';
 import { useState } from 'react';
-import { columSum, rowSum, tileSum } from '../../utils/variables';
+import { columnSum, rowSum, tileSum } from '../../utils/variables';
 import { Tile } from '../Tile/Tile';
 
 const StyledCardContainer = styled(Box)(({ theme }) => ({
@@ -45,7 +45,7 @@ export const Board = () => {
         sx={{
           display: 'grid',
           gap: '1rem',
-          gridTemplateColumns: `repeat(${columSum}, 1fr)`,
+          gridTemplateColumns: `repeat(${columnSum}, 1fr)`,
           gridTemplateRows: `repeat(${rowSum}, 1fr)`,
         }}
       >

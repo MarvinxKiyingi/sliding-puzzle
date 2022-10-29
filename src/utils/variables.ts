@@ -1,3 +1,3 @@
-export const columSum = 5;
-export const rowSum = 5;
-export const tileSum = columSum * rowSum;
+export const columnSum = 4;
+export const rowSum = 4;
+export const tileSum = columnSum * rowSum;
