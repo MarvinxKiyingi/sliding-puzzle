@@ -15,7 +15,7 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
   margin: '1rem',
   width: '-webkit-fill-available',
   [theme.breakpoints.up('md')]: {
-    width: '50%',
+    width: '40%',
     aspecRatio: '1/1',
     display: 'flex',
     flexDirection: 'column',
