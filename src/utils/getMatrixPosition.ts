@@ -1,8 +1,8 @@
-import { columnSum, rowSum } from './variables';
+import { columnSum } from './variables';
 
 export const getMatrixPosition = (index: number) => {
   return {
-    row: Math.floor(index / rowSum),
-    column: Math.floor(index / columnSum),
+    row: Math.floor(index / columnSum),
+    col: index % columnSum,
   };
 };

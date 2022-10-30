@@ -1,7 +1,7 @@
-import { isSolved } from '../utils/isSolved';
-import { isSolvable } from '../utils/isSolvable';
+import { isSolved } from './isSolvable';
+import { isSolvable } from './isSolved';
 
-export const shuffle: Number[] | any = (tiles: number[]) => {
-  const shuffledTiles = [...tiles.filter((t) => t !== tiles.length - 1).sort(() => Math.random() - 0.5), tiles.length - 1];
-  return isSolvable(tiles) && !isSolved(tiles) ? shuffledTiles : shuffle(shuffledTiles);
+export const shuffle: number[] | any = (tiles: number[]) => {
+  const shuffledTiles = [...tiles.filter((f: any) => f !== tiles.length - 1).sort(() => Math.random() - 0.5), tiles.length - 1];
+  return isSolvable(shuffledTiles) && !isSolved(shuffledTiles) ? shuffledTiles : shuffle(shuffledTiles);
 };
