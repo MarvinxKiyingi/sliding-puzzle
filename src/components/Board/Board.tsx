@@ -1,8 +1,11 @@
-import { Button, CardActions, CardContent, styled, Box } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { shuffle } from '../../utils/shuffle';
+import { Button, CardActions, CardContent, styled, Box, Alert } from '@mui/material';
+import { useState } from 'react';
+import { isSolved } from '../../utils/isSolvable';
 
-import { columnSum, rowSum, tileSum } from '../../utils/variables';
+import { shuffle } from '../../utils/shuffle';
+import { swap } from '../../utils/swap';
+
+import { columnSum, rowSum, boardSize } from '../../utils/variables';
 import { Tile } from '../Tile/Tile';
 
 const StyledCardContainer = styled(Box)(({ theme }) => ({
@@ -17,13 +20,6 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
   },
   '.board': {
     aspectRatio: '1/1',
-    div: {
-      flexBasis: '20%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      cursor: 'pointer',
-    },
   },
   '.buttonContainer': {
     justifyContent: 'center',
@@ -33,58 +29,53 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
     alignSelf: 'center',
   },
 }));
+
+const inlineStyles = {
+  display: 'grid',
+  gap: '1rem',
+  gridTemplateColumns: `repeat(${columnSum}, 1fr)`,
+  gridTemplateRows: `repeat(${rowSum}, 1fr)`,
+};
+
 export const Board = () => {
-  const [tiles, setTiles] = useState([...Array(tileSum).keys()]);
+  const [tiles, setTiles] = useState([...Array(boardSize).keys()]);
   const [isStarted, setIsStarted] = useState(false);
+  const [hasCompletedPuzzle, setHasCompletedPuzzle] = useState(false);
 
-  const squares = Array.from({ length: tileSum }, (_tile, i) => i);
-
-  const moveSquare = (tile: number) => {
-    let zeroIndex = tiles.indexOf(0);
-    let valIndex = tiles.indexOf(tile);
-
-    console.log('tiles', tiles.length);
-    console.log('zeroIndex', zeroIndex);
-    console.log('valIndex', valIndex);
-
-    if (valIndex + columnSum === zeroIndex || valIndex - columnSum === zeroIndex) {
-      swap(valIndex, zeroIndex);
-    } else if (valIndex + 1 === zeroIndex && zeroIndex % columnSum !== 0) {
-      swap(valIndex, zeroIndex);
-    } else if (valIndex - 1 === zeroIndex && (zeroIndex + 1) % columnSum !== 0) {
-      swap(valIndex, zeroIndex);
-    }
+  const shuffleTiles = () => {
+    const shuffledTiles = shuffle(tiles);
+    setTiles(shuffledTiles);
   };
 
-  const swap = (valIndex: number, zeroIndex: number) => {
-    let temArray = [...tiles];
-    temArray[zeroIndex] = tiles[valIndex];
-    temArray[valIndex] = 0;
-    setTiles(() => [...temArray]);
+  const swapTiles = (tileIndex: number) => {
+    const swappedTiles = swap(tiles, tiles[tileIndex]);
+    setTiles(swappedTiles);
+  };
+
+  const handleTileClick = (index: number) => {
+    swapTiles(index);
   };
 
   const handleShuffleClick = () => {
-    setTiles(shuffle(tiles));
+    shuffleTiles();
   };
 
   const handleStartClick = () => {
-    setTiles(() => shuffle(squares));
+    shuffleTiles();
     setIsStarted(true);
   };
 
+  if (hasCompletedPuzzle) {
+    setHasCompletedPuzzle(isSolved(tiles));
+  }
+
   return (
     <StyledCardContainer>
-      <CardContent
-        className='board'
-        sx={{
-          display: 'grid',
-          gap: '1rem',
-          gridTemplateColumns: `repeat(${columnSum}, 1fr)`,
-          gridTemplateRows: `repeat(${rowSum}, 1fr)`,
-        }}
-      >
+      {hasCompletedPuzzle && isStarted && <Alert severity='success'>Great job! you solved it! 🎉</Alert>}
+
+      <CardContent className='board' sx={inlineStyles}>
         {tiles.map((tile, index) => (
-          <Tile key={index} tileNumber={tile ? tile : ''} onClick={() => moveSquare(tile)} />
+          <Tile key={index} tileNumber={tile} onClick={() => handleTileClick(index)} />
         ))}
       </CardContent>
       <CardActions className='buttonContainer'>

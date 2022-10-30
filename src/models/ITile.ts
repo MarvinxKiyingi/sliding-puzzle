@@ -1,4 +1,4 @@
 export type ITile = {
-  tileNumber: number | string;
+  tileNumber: number;
   onClick?: () => void;
 };
