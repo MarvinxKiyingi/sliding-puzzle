@@ -1,11 +1,13 @@
 import { Button, CardActions, CardContent, styled, Box, Alert } from '@mui/material';
 import { useState } from 'react';
+
 import { isSolved } from '../../utils/isSolvable';
 
 import { shuffle } from '../../utils/shuffle';
 import { swap } from '../../utils/swap';
 
 import { columnSum, rowSum, boardSize } from '../../utils/variables';
+
 import { Tile } from '../Tile/Tile';
 
 const StyledCardContainer = styled(Box)(({ theme }) => ({
