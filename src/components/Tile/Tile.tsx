@@ -1,5 +1,5 @@
 import { styled, Button, Box } from '@mui/material';
-import { ITile } from '../models/ITile';
+import { ITile } from '../../models/ITile';
 
 const StyledTile = styled(Box)(({ theme }) => ({
   backgroundColor: '#371722',
