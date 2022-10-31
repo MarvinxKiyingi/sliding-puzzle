@@ -10,12 +10,12 @@ export const PuzzleContex = React.createContext({} as IPuzzleStates);
 export const usePuzzleState = () => useContext(PuzzleContex);
 
 export const PuzzleStatesProvider = ({ children }: props) => {
-  const [columnSum, setColumnSum] = useState(2);
-  const [rowSum, setRowSum] = useState(2);
+  const [columnSum, setColumnSum] = useState(3);
+  const [rowSum, setRowSum] = useState(3);
 
   const boardSize = columnSum * rowSum;
 
-  const [tiles, setTiles] = useState([...Array(boardSize).keys()]);
+  const [tiles, setTiles] = useState<number[]>([]);
   const [isStarted, setIsStarted] = useState(false);
   const [hasCompletedPuzzle, setHasCompletedPuzzle] = useState(false);
 

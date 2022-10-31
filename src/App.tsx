@@ -8,7 +8,6 @@ const AppContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   fontSize: 'calc(10px + 2vmin)',
-  // [theme.breakpoints.up('md')]: {},
 }));
 
 function App() {

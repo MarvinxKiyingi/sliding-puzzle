@@ -1,6 +1,6 @@
 import { styled, Box } from '@mui/material';
 import { ITile } from '../../models/ITile';
-import { boardSize } from '../../utils/variables';
+import { usePuzzleState } from '../../utils/context/PuzzleStates';
 
 const StyledTile = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -15,6 +15,7 @@ const StyledTile = styled(Box)(({ theme }) => ({
 }));
 
 export const Tile = (props: ITile) => {
+  const { boardSize } = usePuzzleState();
   return (
     <StyledTile onClick={props?.onClick} style={{ opacity: props.tileNumber === boardSize - 1 ? 0 : 1 }}>
       {props.tileNumber + 1}
