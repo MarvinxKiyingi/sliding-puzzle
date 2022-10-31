@@ -1,13 +1,11 @@
-import { Button, CardActions, CardContent, styled, Box, Alert } from '@mui/material';
-import { useState } from 'react';
-
-import { isSolved } from '../../utils/isSolvable';
+import { Button, CardActions, CardContent, styled, Box, Alert, Stack } from '@mui/material';
+import { useEffect } from 'react';
+import { usePuzzleState } from '../../utils/context/PuzzleStates';
+import { isSolved } from '../../utils/isSolved';
 
 import { shuffle } from '../../utils/shuffle';
 import { swap } from '../../utils/swap';
-
-import { columnSum, rowSum, boardSize } from '../../utils/variables';
-
+import { Start } from '../Start/Start';
 import { Tile } from '../Tile/Tile';
 
 const StyledCardContainer = styled(Box)(({ theme }) => ({
@@ -16,7 +14,7 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
   width: '-webkit-fill-available',
   [theme.breakpoints.up('md')]: {
     width: '40%',
-    aspecRatio: '1/1',
+    aspectRatio: '1/1',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -25,6 +23,7 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
   },
   '.buttonContainer': {
     justifyContent: 'center',
+    padding: '1rem',
   },
   button: {
     fontFamily: "'Open Sans', sans-serif",
@@ -32,17 +31,16 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const inlineStyles = {
-  display: 'grid',
-  gap: '1rem',
-  gridTemplateColumns: `repeat(${columnSum}, 1fr)`,
-  gridTemplateRows: `repeat(${rowSum}, 1fr)`,
-};
-
 export const Board = () => {
-  const [tiles, setTiles] = useState([...Array(boardSize).keys()]);
-  const [isStarted, setIsStarted] = useState(false);
-  const [hasCompletedPuzzle, setHasCompletedPuzzle] = useState(false);
+  const { columnSum, rowSum, boardSize, tiles, isStarted, setTiles, setIsStarted } = usePuzzleState();
+
+  const startInlineStyles = {};
+  const boardInlineStyles = {
+    display: 'grid',
+    gap: '1rem',
+    gridTemplateColumns: `repeat(${columnSum}, 1fr)`,
+    gridTemplateRows: `repeat(${rowSum}, 1fr)`,
+  };
 
   const shuffleTiles = () => {
     const shuffledTiles = shuffle(tiles);
@@ -50,7 +48,7 @@ export const Board = () => {
   };
 
   const swapTiles = (tileIndex: number) => {
-    const swappedTiles = swap(tiles, tiles[tileIndex]);
+    const swappedTiles = swap(tiles, tiles[tileIndex], boardSize, columnSum);
     setTiles(swappedTiles);
   };
 
@@ -67,18 +65,29 @@ export const Board = () => {
     setIsStarted(true);
   };
 
-  if (hasCompletedPuzzle) {
-    setHasCompletedPuzzle(isSolved(tiles));
-  }
+  const hasWon = isSolved(tiles);
+
+  console.log('hasWon', hasWon);
+  console.log('tiles', tiles);
+
+  useEffect(() => {
+    setTiles([...Array(boardSize).keys()]);
+  }, [boardSize, setTiles]);
 
   return (
     <StyledCardContainer>
-      {hasCompletedPuzzle && isStarted && <Alert severity='success'>Great job! you solved it! 🎉</Alert>}
+      {hasWon && isStarted && <Alert severity='success'>Great job! you solved it! 🎉</Alert>}
 
-      <CardContent className='board' sx={inlineStyles}>
-        {tiles.map((tile, index) => (
-          <Tile key={index} tileNumber={tile} onClick={() => handleTileClick(index)} />
-        ))}
+      <CardContent className='board' sx={isStarted ? boardInlineStyles : startInlineStyles}>
+        {!isStarted ? (
+          <Start />
+        ) : (
+          <>
+            {tiles?.map((tile, index) => (
+              <Tile key={index} tileNumber={tile} onClick={() => handleTileClick(index)} />
+            ))}
+          </>
+        )}
       </CardContent>
       <CardActions className='buttonContainer'>
         {!isStarted ? (
@@ -86,9 +95,14 @@ export const Board = () => {
             Start game
           </Button>
         ) : (
-          <Button variant='contained' size='large' onClick={() => handleShuffleClick()}>
-            Shuffle
-          </Button>
+          <Stack direction='row' spacing={2}>
+            <Button variant='contained' size='large' onClick={() => handleShuffleClick()}>
+              {hasWon ? 'New game' : 'Shuffle'}
+            </Button>
+            <Button variant='outlined' size='large' onClick={() => setIsStarted(false)}>
+              Home
+            </Button>
+          </Stack>
         )}
       </CardActions>
     </StyledCardContainer>
