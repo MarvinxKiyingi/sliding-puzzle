@@ -5,8 +5,10 @@ type IPuzzleStatesProvider = {
   children: JSX.Element | JSX.Element[];
 };
 
+// Initiating context
 export const PuzzleContex = React.createContext({} as IPuzzleStates);
 
+// Exporting the context, to be used wherever
 export const usePuzzleState = () => useContext(PuzzleContex);
 
 export const PuzzleStatesProvider = ({ children }: IPuzzleStatesProvider) => {

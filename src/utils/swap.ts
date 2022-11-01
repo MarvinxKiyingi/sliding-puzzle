@@ -1,3 +1,4 @@
+// Makes it possible to move the tiles around, one step at a time
 export const swap = (tiles: number[], index: number, boardSize: number, columnSum: number) => {
   let tilesResult = [...tiles];
   let emptyIndex = tilesResult.indexOf(boardSize - 1);
