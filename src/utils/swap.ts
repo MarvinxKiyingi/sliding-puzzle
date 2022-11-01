@@ -1,5 +1,4 @@
-import { getMatrixPosition } from './getMatrixPosition';
-
+// Makes it possible to move the tiles around, one step at a time
 export const swap = (tiles: number[], index: number, boardSize: number, columnSum: number) => {
   let tilesResult = [...tiles];
   let emptyIndex = tilesResult.indexOf(boardSize - 1);
@@ -7,14 +6,10 @@ export const swap = (tiles: number[], index: number, boardSize: number, columnSu
 
   const dif = Math.abs(targetIndex - emptyIndex);
 
-  let indexPosition = getMatrixPosition(targetIndex, columnSum);
-  let emptyPosition = getMatrixPosition(emptyIndex, columnSum);
-
-  if (indexPosition.col === emptyPosition.col || indexPosition.row === emptyPosition.row) {
-    if (dif === 1 || dif === columnSum) {
-      tilesResult[emptyIndex] = index;
-      tilesResult[targetIndex] = boardSize - 1;
-    }
+  if (dif === 1 || dif === columnSum) {
+    tilesResult[emptyIndex] = index;
+    tilesResult[targetIndex] = boardSize - 1;
   }
+
   return tilesResult;
 };

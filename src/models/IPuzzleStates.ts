@@ -10,6 +10,4 @@ export type IPuzzleStates = {
   setIsStarted: React.Dispatch<React.SetStateAction<boolean>>;
   hasCompletedPuzzle: boolean;
   setHasCompletedPuzzle: React.Dispatch<React.SetStateAction<boolean>>;
-  counter: number;
-  setCounter: React.Dispatch<React.SetStateAction<number>>;
 };

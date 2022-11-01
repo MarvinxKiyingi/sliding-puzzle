@@ -9,9 +9,13 @@ import { Start } from '../Start/Start';
 import { Tile } from '../Tile/Tile';
 
 const StyledCardContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: '#f8e5e5',
+  backgroundColor: '#ffffff',
   margin: '1rem',
+  borderRadius: '0.5rem',
   width: '-webkit-fill-available',
+  [theme.breakpoints.up(290)]: {
+    padding: '2rem',
+  },
   [theme.breakpoints.up('md')]: {
     width: '40%',
     aspectRatio: '1/1',
@@ -24,6 +28,24 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
   '.buttonContainer': {
     justifyContent: 'center',
     padding: '1rem',
+    fontWeight: 700,
+    '.primary,.secondary': {
+      fontSize: '0.7rem',
+      [theme.breakpoints.up(290)]: {
+        fontSize: '1rem',
+      },
+    },
+    '.primary': {
+      backgroundColor: '#FD750A',
+      '&.start': {
+        aspectRatio: '1/1',
+        borderRadius: '50%',
+      },
+    },
+    '.secondary': {
+      border: ' solid #FD750A',
+      color: '#FD750A',
+    },
   },
   button: {
     fontFamily: "'Open Sans', sans-serif",
@@ -88,15 +110,15 @@ export const Board = () => {
       </CardContent>
       <CardActions className='buttonContainer'>
         {!isStarted ? (
-          <Button variant='contained' size='large' onClick={() => handleStartClick()}>
+          <Button className='primary start' variant='contained' size='large' onClick={() => handleStartClick()}>
             Start game
           </Button>
         ) : (
           <Stack direction='row' spacing={2}>
-            <Button variant='contained' size='large' onClick={() => handleShuffleClick()}>
+            <Button className='primary' variant='contained' size='large' onClick={() => handleShuffleClick()}>
               {hasWon ? 'New game' : 'Shuffle'}
             </Button>
-            <Button variant='outlined' size='large' onClick={() => setIsStarted(false)}>
+            <Button className='secondary' variant='outlined' size='large' onClick={() => setIsStarted(false)}>
               Home
             </Button>
           </Stack>
