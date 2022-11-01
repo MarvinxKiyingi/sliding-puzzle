@@ -1,5 +1,4 @@
 import { Box, IconButton, styled, Typography } from '@mui/material';
-import { ICounter } from '../../models/ICounter';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { usePuzzleState } from '../../utils/context/PuzzleStates';
@@ -20,7 +19,7 @@ const CounterContainer = styled(Box)({
   },
 });
 
-export const ColCounter = ({ counterVariant }: ICounter) => {
+export const ColCounter = () => {
   const { columnSum, setColumnSum } = usePuzzleState();
   const handleIncrease = () => {
     setColumnSum((prev: number) => prev + 1);
@@ -32,7 +31,7 @@ export const ColCounter = ({ counterVariant }: ICounter) => {
 
   return (
     <CounterContainer>
-      <Typography className='title'>{counterVariant}</Typography>
+      <Typography className='title'>Column</Typography>
 
       <Box className='counterContainer'>
         <IconButton disabled={columnSum === 2 ? true : false} onClick={() => handleDecrease()}>
