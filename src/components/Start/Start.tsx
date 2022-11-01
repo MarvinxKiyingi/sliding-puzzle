@@ -17,8 +17,8 @@ export const Start = () => {
   const { columnSum, rowSum } = usePuzzleState();
   return (
     <StyledStartContainer>
-      <ColCounter counterVariant={'Colum'} />
-      <RowCounter counterVariant={'Row'} />
+      <ColCounter />
+      <RowCounter />
       <Box className='boardSize'> {`${columnSum} X ${rowSum}`}</Box>
     </StyledStartContainer>
   );
