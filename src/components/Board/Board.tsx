@@ -67,9 +67,6 @@ export const Board = () => {
 
   const hasWon = isSolved(tiles);
 
-  console.log('hasWon', hasWon);
-  console.log('tiles', tiles);
-
   useEffect(() => {
     setTiles([...Array(boardSize).keys()]);
   }, [boardSize, setTiles]);
