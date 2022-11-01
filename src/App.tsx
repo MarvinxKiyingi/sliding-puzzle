@@ -7,7 +7,11 @@ const AppContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  fontSize: 'calc(10px + 2vmin)',
+  fontSize: 'calc(1rem + 2vmin)',
+  backgroundColor: '#ede7e2',
+  backgroundImage: 'radial-gradient(#000000 0.5px, transparent 0.5px), radial-gradient(#000000 0.5px, #ede7e2 0.5px)',
+  backgroundSize: '20px 20px',
+  backgroundPosition: '0 0,10px 10px',
 }));
 
 function App() {

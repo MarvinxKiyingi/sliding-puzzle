@@ -1,23 +1,8 @@
-import { Box, IconButton, styled, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { Box, IconButton, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { usePuzzleState } from '../../utils/context/PuzzleStates';
-
-const appFontFamily = " 'Open Sans', sans-serif";
-const CounterContainer = styled(Box)({
-  display: 'flex',
-  width: '100%',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  '.title,.counterAmount': {
-    fontFamily: appFontFamily,
-    fontSize: 'calc(10px + 2vmin)',
-  },
-  '.counterContainer': {
-    display: 'flex',
-    alignItems: 'center',
-  },
-});
+import { CounterContainer } from './styles/CounterContainer';
 
 export const ColCounter = () => {
   const { columnSum, setColumnSum } = usePuzzleState();
@@ -30,18 +15,20 @@ export const ColCounter = () => {
   };
 
   return (
-    <CounterContainer>
+    <CounterContainer className='colCounter'>
       <Typography className='title'>Column</Typography>
 
       <Box className='counterContainer'>
         <IconButton disabled={columnSum === 2 ? true : false} onClick={() => handleDecrease()}>
-          <RemoveIcon fontSize='inherit' />
+          <ExpandMoreIcon fontSize='inherit' />
         </IconButton>
 
-        <Typography className='counterAmount'> {columnSum}</Typography>
+        <Box className='counterAmountContainer'>
+          <Typography className='counterAmount'> {columnSum}</Typography>
+        </Box>
 
         <IconButton disabled={columnSum >= 7 ? true : false} onClick={() => handleIncrease()}>
-          <AddIcon fontSize='inherit' />
+          <ExpandLessIcon fontSize='inherit' />
         </IconButton>
       </Box>
     </CounterContainer>

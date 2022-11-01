@@ -7,11 +7,12 @@ const StyledTile = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
-  backgroundColor: '#371722',
-  color: '#BBAB9B',
+  backgroundColor: '#f5ff7d',
+  color: '#371722',
   borderRadius: 10,
   boxSizing: 'border-box',
   fontSize: 'larger',
+  fontWeight: 700,
 }));
 
 export const Tile = (props: ITile) => {
