@@ -67,10 +67,6 @@ export const Board = () => {
   const shuffleTiles = () => {
     const shuffledTiles = shuffle(tiles);
     setTiles(shuffledTiles);
-
-    if (isSolved(shuffledTiles)) {
-      setTiles(shuffledTiles);
-    }
   };
 
   const swapTiles = (tileIndex: number) => {
@@ -92,6 +88,8 @@ export const Board = () => {
   };
 
   const hasWon = isSolved(tiles);
+
+  console.log('tiles', tiles);
 
   useEffect(() => {
     setTiles([...Array(boardSize).keys()]);
