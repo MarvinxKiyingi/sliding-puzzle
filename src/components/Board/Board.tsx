@@ -45,6 +45,10 @@ export const Board = () => {
   const shuffleTiles = () => {
     const shuffledTiles = shuffle(tiles);
     setTiles(shuffledTiles);
+
+    if (isSolved(shuffledTiles)) {
+      setTiles(shuffledTiles);
+    }
   };
 
   const swapTiles = (tileIndex: number) => {
