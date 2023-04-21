@@ -20,6 +20,7 @@ export const PuzzleStatesProvider = ({ children }: IPuzzleStatesProvider) => {
   const [tiles, setTiles] = useState<number[]>([]);
   const [isStarted, setIsStarted] = useState(false);
   const [hasCompletedPuzzle, setHasCompletedPuzzle] = useState(false);
+  const [stopConfetti, setStopConfetti] = useState(true);
 
   const values = {
     columnSum,
@@ -33,6 +34,8 @@ export const PuzzleStatesProvider = ({ children }: IPuzzleStatesProvider) => {
     setIsStarted,
     hasCompletedPuzzle,
     setHasCompletedPuzzle,
+    stopConfetti,
+    setStopConfetti,
   };
   return <PuzzleContex.Provider value={values}>{children}</PuzzleContex.Provider>;
 };

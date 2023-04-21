@@ -10,4 +10,6 @@ export type IPuzzleStates = {
   setIsStarted: React.Dispatch<React.SetStateAction<boolean>>;
   hasCompletedPuzzle: boolean;
   setHasCompletedPuzzle: React.Dispatch<React.SetStateAction<boolean>>;
+  stopConfetti: boolean;
+  setStopConfetti: React.Dispatch<React.SetStateAction<boolean>>;
 };
