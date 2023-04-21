@@ -1,5 +1,5 @@
 import { Button, CardActions, CardContent, styled, Box, Alert, Stack } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePuzzleState } from '../../utils/context/PuzzleStates';
 import { isSolved } from '../../utils/isSolved';
 
@@ -7,6 +7,8 @@ import { shuffle } from '../../utils/shuffle';
 import { swap } from '../../utils/swap';
 import { Start } from '../Start/Start';
 import { Tile } from '../Tile/Tile';
+import { ConfettiContainer } from '../Confetti/Confetti';
+import { useWindowSize } from 'react-use';
 
 const StyledCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: '#ffffff',
@@ -54,7 +56,9 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const Board = () => {
-  const { columnSum, rowSum, boardSize, tiles, isStarted, setTiles, setIsStarted } = usePuzzleState();
+  const { columnSum, rowSum, boardSize, tiles, isStarted, setTiles, setIsStarted, stopConfetti, setStopConfetti } =
+    usePuzzleState();
+  const { width, height } = useWindowSize();
 
   const startInlineStyles = {};
   const boardInlineStyles = {
@@ -89,13 +93,25 @@ export const Board = () => {
 
   const hasWon = isSolved(tiles);
 
+  const solvedPuzzle = hasWon && isStarted;
+
+  // Stop the confetti efter 15 sec
+  if (solvedPuzzle) {
+    setTimeout(() => {
+      setStopConfetti(false);
+    }, 15000);
+  } else {
+    setStopConfetti(true);
+  }
+
   useEffect(() => {
     setTiles([...Array(boardSize).keys()]);
   }, [boardSize, setTiles]);
 
   return (
     <StyledCardContainer>
-      {hasWon && isStarted && <Alert severity='success'>Great job! you solved it! 🎉</Alert>}
+      {solvedPuzzle && <ConfettiContainer height={height} width={width} numberOfPieces={150} recycle={stopConfetti} />}
+      {solvedPuzzle && <Alert severity='success'>Great job! you solved it! 🎉</Alert>}
 
       <CardContent className='board' sx={isStarted ? boardInlineStyles : startInlineStyles}>
         {!isStarted ? (
