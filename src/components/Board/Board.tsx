@@ -1,5 +1,5 @@
 import { Button, CardActions, CardContent, styled, Box, Alert, Stack } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { usePuzzleState } from '../../utils/context/PuzzleStates';
 import { isSolved } from '../../utils/isSolved';
 
@@ -19,7 +19,7 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
     padding: '2rem',
   },
   [theme.breakpoints.up('md')]: {
-    width: '40%',
+    width: '45%',
     aspectRatio: '1/1',
     display: 'flex',
     flexDirection: 'column',
