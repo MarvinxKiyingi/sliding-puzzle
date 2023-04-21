@@ -1,5 +1,5 @@
 import { Button, CardActions, CardContent, styled, Box, Alert, Stack } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { usePuzzleState } from '../../utils/context/PuzzleStates';
 import { isSolved } from '../../utils/isSolved';
 
