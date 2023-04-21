@@ -19,7 +19,7 @@ const StyledCardContainer = styled(Box)(({ theme }) => ({
     padding: '2rem',
   },
   [theme.breakpoints.up('md')]: {
-    width: '40%',
+    width: '45%',
     aspectRatio: '1/1',
     display: 'flex',
     flexDirection: 'column',

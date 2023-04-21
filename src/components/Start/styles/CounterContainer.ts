@@ -8,10 +8,8 @@ export const CounterContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   '.title,.counterAmount': {
     fontFamily: appFontFamily,
-    [theme.breakpoints.up('md')]: {
-      fontSize: 'calc(1rem + 2vmin)',
-    },
-    [theme.breakpoints.up('md')]: {
+
+    [theme.breakpoints.up('sm')]: {
       fontSize: 'calc(2rem + 2vmin)',
     },
   },
